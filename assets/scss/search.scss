@@ -1,0 +1,65 @@
+/* ajax-поиск */
+.header-search{
+    position: relative;
+}
+.ajax-search {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    right: 0;
+    background: #fff;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+    max-height: 230px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    z-index: 100;
+    padding: 0;
+    font-size: 14px;
+    color: #424348;
+    scrollbar-color: dark;
+    scrollbar-width: thin;
+    overscroll-behavior: contain;
+}
+
+.ajax-search.hidden{
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+}
+
+.ajax-search::-webkit-scrollbar {
+    width: 6px;
+    background-color: #eff2f3;
+}
+
+.ajax-search::-webkit-scrollbar-thumb {
+    background-color: #dddddd;
+    border-radius: 4em;
+}
+
+.ajax-search__item {
+    position: relative;
+    padding: 10px 15px;
+    cursor: pointer;
+    list-style-type: none;
+}
+
+.ajax-search__link {
+    color: #000;
+    line-height: 130%;
+    margin-bottom: 10px;
+    font-size: 13px;
+    display: block;
+}
+
+.ajax-search__excerpt {
+    cursor: default;
+    font-size: 11px;
+    line-height: 140%;
+}
+
+.ajax-search__not-found {
+    font-size: 12px;
+}
+/* ajax-поиск */

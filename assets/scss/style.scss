@@ -1,0 +1,472 @@
+/*
+    Theme Name:  
+*/
+
+// Шрифты
+@import url(assets/fonts/fonts.css);
+
+// Обнуление, общие стили
+*{
+    padding: 0;
+    margin: 0;
+    font-family: 'Calibri';
+    border: 0;
+    box-sizing: border-box;
+    transition: .5s;
+}
+
+*::before,
+*::after{
+    box-sizing: border-box;
+    position: absolute;
+    content: '';
+}
+
+body.lock{
+    overflow: hidden;
+}
+
+ul, li{
+    list-style: none;
+}
+
+.container{
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 10px;
+}
+
+button{
+    cursor: pointer;
+}
+input, textarea, button{
+    outline: none;
+}
+
+a{
+    text-decoration: none;
+    color: #000000;
+    &:hover{
+        text-decoration: underline;
+    }
+}
+
+img{
+    width: 100%;
+    object-fit: cover;
+}
+
+.wrapper{
+    min-height: 100%;
+    overflow: hidden;
+}
+// Обнуление, общие стили
+
+// Кастомные общие стили, индивидуально под каждый проект свои!
+
+section{
+
+}
+
+h1{
+
+}
+h2{
+    
+}
+h3{
+
+}
+
+p{
+    color: #000000;
+}
+span{
+
+}
+.flex{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.flex-auto{
+    flex: 0 1 auto;
+}
+.flex{
+    flex: 0 1 100%;
+}
+.flex2{
+    flex: 0 1 49%;
+    @media (max-width: 768px){
+        flex: 0 1 100%;
+    }
+}
+.flex3{
+    flex: 0 1 32%;
+    @media (max-width: 768px){
+        flex: 0 1 49%;
+    }
+    @media (max-width: 500px){
+        flex: 0 1 100%;
+    }
+}
+.flex4{
+    flex: 0 1 24%;
+    @media (max-width: 1024px){
+        flex: 0 1 32%;
+    }
+    @media (max-width: 768px){
+        flex: 0 1 49%;
+    }
+    @media (max-width: 500px){
+        flex: 0 1 100%;
+    }
+}
+.flex5{
+    flex: 0 1 19%;
+    @media (max-width: 1280px){
+        flex: 0 1 24%;
+    }
+    @media (max-width: 1024px){
+        flex: 0 1 32%;
+    }
+    @media (max-width: 768px){
+        flex: 0 1 49%;
+    }
+    @media (max-width: 500px){
+        flex: 0 1 100%;
+    }
+}
+.pc-hidden{
+    display: none;
+    @media (max-width: 768px){
+        display: block;
+    }
+}
+.mob-hidden{
+    display: block;
+    @media (max-width: 768px){
+        display: none;
+    }
+}
+// Кастомные общие стили, индивидуально под каждый проект свои!
+
+
+
+
+// Хедер
+header{
+    .container{
+        .head-logo{
+            img{
+
+            }
+        }
+
+        .head-menu{
+            ul{
+                li{
+                    a{
+
+
+                        &:hover{
+
+                        }
+                    }
+                }
+            }
+        }
+
+        .burger{
+            display: none;
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            height: 30px;
+            width: 30px;
+            position: relative;
+            cursor: pointer;
+            span{
+                top: 8px;
+                position: absolute;
+                background: #000;
+                height: 3px;
+                width: 30px;
+                &:first-child{
+                    top: 16px;
+                    
+                }
+                &:last-child{
+                    top: 0px;
+                    
+                }
+            }
+        }
+        .h-active{
+            span{
+                transform: scale(0);
+                &:first-child{
+                    top: 10px;
+                    transform: rotate(-45deg);
+                    
+                }
+                &:last-child{
+                    top: 10px;
+                    transform: rotate(45deg);
+                    
+                }
+            }
+        }
+        @media (max-width: 1100px){
+            header{
+                .burger{
+                    display: block;
+                    z-index: 50;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 1100px){
+    header{
+        .container{
+            .head-menu{
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                top: 0;
+                left: 0;
+                transform: translateY(-100%);
+                background: #8a8a73;
+                ul{
+                    li{
+                        a{
+    
+    
+                            &:hover{
+    
+                            }
+                        }
+                    }
+                }
+            }
+            
+            .head-menu .h-active{
+                transform: translateY(0);
+            }
+        }
+    }
+}
+
+
+/* ajax-поиск */
+.header-search{
+    position: relative;
+}
+.ajax-search {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    right: 0;
+    background: #fff;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+    max-height: 230px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    z-index: 100;
+    padding: 0;
+    font-size: 14px;
+    color: #424348;
+    scrollbar-color: dark;
+    scrollbar-width: thin;
+    overscroll-behavior: contain;
+}
+.ajax-search.hidden{
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+}
+.ajax-search::-webkit-scrollbar {
+    width: 6px;
+    background-color: #eff2f3;
+}
+.ajax-search::-webkit-scrollbar-thumb {
+    background-color: #dddddd;
+    border-radius: 4em;
+}
+.ajax-search__item {
+    position: relative;
+    padding: 10px 15px;
+    cursor: pointer;
+    list-style-type: none;
+}
+.ajax-search__link {
+    color: #000;
+    line-height: 130%;
+    margin-bottom: 10px;
+    font-size: 13px;
+    display: block;
+}
+.ajax-search__excerpt {
+    cursor: default;
+    font-size: 11px;
+    line-height: 140%;
+}
+.ajax-search__not-found {
+    font-size: 12px;
+}
+/* ajax-поиск */
+
+// Хедер
+//==============================================================================
+//============================ index.php =======================================
+.main-s1{
+    .container{
+        h1{
+
+        }
+    }
+}
+@media (max-width: 800px){
+    .main-s1{
+        .container{
+            h1{
+    
+            }
+        }
+    }
+}
+//============================
+.main-s2{
+    .container{
+
+    }
+}
+@media (max-width: 800px){
+    .main-s2{
+        .container{
+
+        }
+    }
+}
+//============================
+.main-s3{
+    .container{
+        
+    }
+}
+@media (max-width: 800px){
+    .main-s3{
+        .container{
+
+        }
+    }
+}
+//============================
+.main-s4{
+    .container{
+        
+    }
+}
+@media (max-width: 800px){
+    .main-s4{
+        .container{
+
+        }
+    }
+}
+//============================
+.main-s5{
+    .container{
+        
+    }
+}
+@media (max-width: 800px){
+    .main-s5{
+        .container{
+
+        }
+    }
+}
+//============================
+.main-s6{
+    .container{
+        
+    }
+}
+@media (max-width: 800px){
+    .main-s6{
+        .container{
+
+        }
+    }
+}
+//============================
+.main-s7{
+    .container{
+        
+    }
+}
+@media (max-width: 800px){
+    .main-s7{
+        .container{
+
+        }
+    }
+}
+//============================
+.main-s8{
+    .container{
+        
+    }
+}
+@media (max-width: 800px){
+    .main-s8{
+        .container{
+
+        }
+    }
+}
+//============================ index.php =======================================
+//==============================================================================
+
+//==============================================================================
+//============================ page2.php =======================================
+
+//============================ page2.php =======================================
+//==============================================================================
+
+//==============================================================================
+//============================ page3.php =======================================
+
+//============================ page3.php =======================================
+//==============================================================================
+
+//==============================================================================
+//============================ page4.php =======================================
+
+//============================ page4.php =======================================
+//==============================================================================
+
+//==============================================================================
+//============================ page5.php =======================================
+
+//============================ page5.php =======================================
+//==============================================================================
+// Футер
+footer{
+    .container{
+
+    }
+}
+
+@media (max-width: 1100px){
+    footer{
+        .container{
+
+        }
+    }
+}
+// Футер
