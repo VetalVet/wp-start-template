@@ -152,6 +152,21 @@
             </div>
         </section>
 
+
+        <!-- для модального окна обязательно нужен класс ._popup-link -->
+        <!-- в атрибуте href пишется id попапа, его же писать в классе popup_, например popup_callback -->
+        <!-- для видео в попапе нужен data-video="" , 
+            внутри которого id видео на ютубе, например 9QQo77PlJ0g -->
+        <div class="text">
+            <a class="_popup-link" data-video="9QQo77PlJ0g" href="#video">VIDEO</a>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat, distinctio vel sed recusandae quod
+            nesciunt similique necessitatibus ut non, enim veritatis natus tempora quam corporis nisi voluptates
+            
+            Vitae, aliquam <a class="_popup-link" href="#callback">POPUP</a> perferendis illo, libero amet dolore
+            architecto nemo aut earum culpa in omnis laudantium facilis officiis consequuntur blanditiis fuga! A
+            facilis
+        </div>
+
         <section class="main-s4">
             <div class="container">
 
@@ -362,19 +377,38 @@
         </footer>
     </div>
 
-    <!-- для модального окна обязательно нужен класс ._popup-link -->
-    <!-- в атрибуте href пишется id попапа, его же писать в классе popup_, например popup_callback -->
-    <!-- для видео в попапе нужен data-video="" , 
-        внутри которого id видео на ютубе, например 9QQo77PlJ0g -->
-    <!-- <div class="text _scr-item">
-        <a class="_popup-link" data-video="9QQo77PlJ0g" href="#video">VIDEO</a>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat, distinctio vel sed recusandae quod
-        nesciunt similique necessitatibus ut non, enim veritatis natus tempora quam corporis nisi voluptates
-        
-        Vitae, aliquam <a class="_popup-link" href="#callback">POPUP</a> perferendis illo, libero amet dolore
-        architecto nemo aut earum culpa in omnis laudantium facilis officiis consequuntur blanditiis fuga! A
-        facilis
-    </div> -->
+    
+
+
+    <div class="popup popup_callback">
+        <div class="popup__content">
+            <div class="popup__body">
+                <div class="popup__close"></div>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga necessitatibus ipsa ex! Inventore debitis expedita voluptatem quasi tempore facere quod cupiditate dicta, hic minima distinctio. Sapiente unde minus pariatur reprehenderit.		</div>
+        </div>
+    </div>
+    <div class="popup popup_popup">
+        <div class="popup__content">
+            <div class="popup__body">
+                <div class="popup__close"></div>
+            </div>
+        </div>
+    </div>
+    <div class="popup popup_massagename-message">
+        <div class="popup__content">
+            <div class="popup__body">
+                <div class="popup__close"></div>
+            </div>
+        </div>
+    </div>
+    <div class="popup popup_video">
+        <div class="popup__content">
+            <div class="popup__body">
+                <div class="popup__close popup__close_video"></div>
+                <div class="popup__video _video"></div>
+            </div>
+        </div>
+    </div>
     
     <!-- <?php get_template_part('templates/popup') ?> -->
 

@@ -11,7 +11,7 @@ function search_ajax(){
 
 
     $args = array(
-        'cat'            => 10, 
+        // 'cat'            => 10, 
         'post_type'      => 'any', // Тип записи: post, page, кастомный тип записи 
         'post_status'    => 'publish',
         's'              => $_POST['s'],

@@ -7,13 +7,13 @@ require get_template_directory_uri() . 'functions/common_css_js.php';
 
 // Подключение своих php скриптов
 // AJAX поиск
-require get_template_directory_uri() . 'functions/ajax-search.php';
+require get_template_directory() . '/functions/ajax-search.php';
 
 // Подключение стилей и скриптов для ОТДЕЛЬНЫХ страниц
-require get_template_directory_uri() . 'functions/styles_and_scripts.php';
+require get_template_directory_uri() . '/functions/styles_and_scripts.php';
 
 // Регистрация таксономий и типов постов
-require get_template_directory_uri() . 'functions/taxonomies_and_posttypes.php';
+require get_template_directory_uri() . '/functions/taxonomies_and_posttypes.php';
 
     
 
@@ -25,6 +25,16 @@ add_theme_support('menus');             // поддержка меню
 add_theme_support('custom-logo');       // поддержка логотипа
 add_theme_support('post-thumbnails');   // поддержка миниатюр поста
 
+
+
+add_filter( 'upload_mimes', 'upload_allow_types' );
+function upload_allow_types( $mimes ) {
+	// разрешаем новые типы
+	$mimes['svg']  = 'image/svg+xml'; // image/svg+xml
+	$mimes['webp']  = 'image/webp'; 
+		
+	return $mimes;
+}
 
 
 

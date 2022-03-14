@@ -37,7 +37,7 @@
 
                 <div class="head-search">
                     <!-- <?php get_search_form(); ?> -->
-                    <form role="search" method="get" action="<?php echo home_url('/') ?>">
+                    <form role="search" class="header-search"  method="get" action="<?php echo home_url('/') ?>">
                         <div><input autocomplete="off" class="search-input" value="<?php echo get_search_query() ?>" name="s" type="text" placeholder="Leita"></div>
                         <button id="searchsubmit" type="submit">
                             <svg xmlns="http://www.w3.org/2000/svg" width="19.856" height="20.848" viewBox="0 0 19.856 20.848">
