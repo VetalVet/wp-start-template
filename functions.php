@@ -1,6 +1,6 @@
 <?php
 // Общие стили и скрипты для ВСЕХ страниц
-require get_template_directory_uri() . 'functions/common_css_js.php';
+require get_template_directory() . '/functions/common_css_js.php';
 
 
 
@@ -9,15 +9,33 @@ require get_template_directory_uri() . 'functions/common_css_js.php';
 // AJAX поиск
 require get_template_directory() . '/functions/ajax-search.php';
 
+// Хлебные крошки 
+require get_template_directory() . '/functions/breadcrumbs.php';
+
+// Ссылки поделиться в соцсетях
+require get_template_directory() . '/functions/social.php';
+
 // Подключение стилей и скриптов для ОТДЕЛЬНЫХ страниц
-require get_template_directory_uri() . '/functions/styles_and_scripts.php';
+require get_template_directory() . '/functions/styles_and_scripts.php';
 
 // Регистрация таксономий и типов постов
-require get_template_directory_uri() . '/functions/taxonomies_and_posttypes.php';
+require get_template_directory() . '/functions/taxonomies_and_posttypes.php';
 
     
 
+// Подключение кастомных виджетов
+// require get_template_directory() . '/widgets/widgets.php';
+// require get_template_directory() . '/widgets/widget-about.php';
+// require get_template_directory() . '/widgets/widget-customcategory.php';
+// require get_template_directory() . '/widgets/widget-subscribe.php';
+// require get_template_directory() . '/widgets/widget-customsearch.php';
+// require get_template_directory() . '/widgets/widget-filter.php';
+// require get_template_directory() . '/widgets/widget-rating.php';
 
+
+
+// Редактирование файлов WooCommerce
+require get_template_directory() . '/woocommerce/woo.php';
 
 
 
@@ -38,8 +56,6 @@ function upload_allow_types( $mimes ) {
 
 
 
-
-
 // Подключение меню
 add_action( 'after_setup_theme', function(){
 	register_nav_menus( [
@@ -47,6 +63,8 @@ add_action( 'after_setup_theme', function(){
 		'footer_menu' => 'Меню в подвале',
 	] );
 } );
+
+
 
 // Подключение и регистрация сайдбаров
 add_action( 'widgets_init', 'register_sidebars' );

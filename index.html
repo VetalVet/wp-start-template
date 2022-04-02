@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
 
@@ -12,7 +13,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <title>Document</title>
     <!-- <title><?php bloginfo('name'); echo ' | '; bloginfo('description'); ?></title> -->
 
@@ -20,6 +21,7 @@
     <link rel="stylesheet" href="style.css">
     <!-- <?php wp_head(); ?> -->
 </head>
+
 <body>
     <div class="wrapper">
         <header>
@@ -73,7 +75,7 @@
 
                 <!-- если есть форма в шапке, опционально -->
                 <!-- <?php get_template_part('templates/header-form') ?> -->
-                
+
                 <div class="burger">
                     <span></span>
                     <span></span>
@@ -103,19 +105,56 @@
                 </div> -->
             </div>
         </header>
-<!-- =======================  header.php  ======================= -->
+        <!-- =======================  header.php  ======================= -->
 
-<!-- 
+        <!-- 
     Template Name: Главная страница 
 -->
 
-<!-- <?php get_header(); ?> -->
- 
+        <!-- <?php get_header(); ?> -->
+
         <section class="main-s1" style="background-image: url();">
             <div class="container">
                 <h1></h1>
             </div>
         </section>
+
+        <!-- Хлебные крошки, опционально -->
+        <!-- <h1 class="caption__title"><?php
+            if(is_single()){
+                if(get_post_type() == 'product'){
+                    echo 'Магазин';
+                } else {
+                    $current_post_type = get_post_type(get_the_ID());
+                    $post_type_object = get_post_type_object($current_post_type);
+                    echo $post_type_object->labels->singular_name;
+                }
+
+            } else if(is_tax()){
+                $current_post_type = get_post_type(get_the_ID());
+                $post_type_object = get_post_type_object($current_post_type);
+                echo $post_type_object->labels->name;
+            } else {
+                echo wp_title('');
+            } ?>
+        </h1> -->
+        <!-- <div class="caption__bc" xmlns:v="http://rdf.data-vocabulary.org/#">
+            <span typeof="v:Breadcrumb">
+                <a rel="v:url" property="v:title" href="#">ГЛавная</a>
+            </span>&nbsp;
+            <span class="sep">/</span>
+            &nbsp;
+            <span typeof="v:Breadcrumb">
+                <a rel="v:url" property="v:title" href="#">Тип поста</a>
+            </span>
+            &nbsp;
+            <span class="sep">/</span>
+            &nbsp;
+            <span class="current">Пост</span>
+        </div> -->
+        <!-- <?php echo wayup_get_breadcrumbs(); ?> -->
+
+
 
         <!-- Заголовок + подзаголовок + одинаковый блок/карточка товара/пост итд -->
         <section class="main-s2" style="background-color: #fff;">
@@ -137,7 +176,7 @@
                 </div>
             </div>
         </section>
-        
+
         <!-- если в секции левый и правый блок -->
         <section class="main-s3">
             <div class="container">
@@ -146,7 +185,7 @@
 
                     </div>
                     <div class="main-s3-flex-right">
-                        
+
                     </div>
                 </div>
             </div>
@@ -161,7 +200,7 @@
             <a class="_popup-link" data-video="9QQo77PlJ0g" href="#video">VIDEO</a>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat, distinctio vel sed recusandae quod
             nesciunt similique necessitatibus ut non, enim veritatis natus tempora quam corporis nisi voluptates
-            
+
             Vitae, aliquam <a class="_popup-link" href="#callback">POPUP</a> perferendis illo, libero amet dolore
             architecto nemo aut earum culpa in omnis laudantium facilis officiis consequuntur blanditiis fuga! A
             facilis
@@ -198,7 +237,7 @@
         </section>
 
 
-<!-- =======================  footer.php  ======================= -->
+        <!-- =======================  footer.php  ======================= -->
         <footer>
             <div class="container">
                 <div class="footer-top">
@@ -206,7 +245,7 @@
                         <img src="" alt="">
                         <!-- <?php the_field(''); ?> -->
                     </div>
-                    
+
                     <nav>
                         <!-- <?php wp_nav_menu( [
                             'theme_location'  => '',
@@ -377,14 +416,17 @@
         </footer>
     </div>
 
-    
+
 
 
     <div class="popup popup_callback">
         <div class="popup__content">
             <div class="popup__body">
                 <div class="popup__close"></div>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga necessitatibus ipsa ex! Inventore debitis expedita voluptatem quasi tempore facere quod cupiditate dicta, hic minima distinctio. Sapiente unde minus pariatur reprehenderit.		</div>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga necessitatibus ipsa ex! Inventore debitis
+                expedita voluptatem quasi tempore facere quod cupiditate dicta, hic minima distinctio. Sapiente unde
+                minus pariatur reprehenderit.
+            </div>
         </div>
     </div>
     <div class="popup popup_popup">
@@ -409,16 +451,17 @@
             </div>
         </div>
     </div>
-    
+
     <!-- <?php get_template_part('templates/popup') ?> -->
 
 
-    <script src="assets/js/swiper-bundle.min.js"></script> 
-    <script src="assets/js/popup.js"></script> 
-    <script src="assets/js/lightgallery.min.js"></script> 
+    <script src="assets/js/swiper-bundle.min.js"></script>
+    <script src="assets/js/popup.js"></script>
+    <script src="assets/js/lightgallery.min.js"></script>
 
     <script src="assets/js/main.js"></script>
     <!-- <?php wp_footer(); ?> -->
 </body>
+
 </html>
 <!-- <?php get_footer(); ?> -->
