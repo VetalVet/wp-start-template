@@ -1,10 +1,10 @@
 <?php
 
 // ajax поиск по сайту 
-add_action('wp_ajax_nopriv_search_ajax', 'search_ajax');
-add_action('wp_ajax_search_ajax', 'search_ajax');
+add_action('wp_ajax_nopriv_search_ajax', 'searchajax');
+add_action('wp_ajax_search_ajax', 'searchajax');
 
-function search_ajax(){
+function searchajax(){
     if(!wp_verify_nonce($_POST['nonce'], 'search-nonce')){
         wp_die('Данные отправлены с левого адреса');
     }

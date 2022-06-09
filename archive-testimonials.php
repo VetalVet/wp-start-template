@@ -3,14 +3,14 @@
 <!-- <?php get_template_part('templates/title') ?> -->
 
 <?php
-    $postsQuantity = the_field('');
+    // $postsQuantity = the_field('');
     $cat = get_the_category()->term_id;
     $authorID = get_post($id)->post_author;
     $current = absint( max( 1, get_query_var( 'paged' ) ? get_query_var( 'paged' ) : get_query_var( 'page' )) );
     $query = new WP_Query( array(
         'post_type'      => 'post',         // тип поста
-        'numberposts' => $postsQuantity,    // кол-во постов на странице
-        'posts_per_page' => $postsQuantity, // кол-во постов на странице
+        // 'numberposts' => $postsQuantity,    // кол-во постов на странице
+        // 'posts_per_page' => $postsQuantity, // кол-во постов на странице
         'cat' => $cat,                      // ID рубрики
         'author' => $authorID,              // ID автора
         'nopaging' => false,                // если нужна пагинация

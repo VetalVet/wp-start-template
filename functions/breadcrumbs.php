@@ -1,5 +1,5 @@
 <?php
-function wayup_get_breadcrumbs() {
+function get_breadcrumbs() {
     //Для фриланса
     //$text['home']     = "Главная";
 

@@ -7,21 +7,22 @@ require get_template_directory() . '/functions/common_css_js.php';
 
 // Подключение своих php скриптов
 // AJAX поиск
-require get_template_directory() . '/functions/ajax-search.php';
+// require get_template_directory() . '/functions/ajax-search.php';
 
 // Хлебные крошки 
-require get_template_directory() . '/functions/breadcrumbs.php';
+// require get_template_directory() . '/functions/breadcrumbs.php';
+
+// Регистрация строк PolyLang
+// require get_template_directory() . '/functions/polylang.php';
 
 // Ссылки поделиться в соцсетях
-require get_template_directory() . '/functions/social.php';
-
-// Подключение стилей и скриптов для ОТДЕЛЬНЫХ страниц
-require get_template_directory() . '/functions/styles_and_scripts.php';
+// require get_template_directory() . '/functions/social.php';
 
 // Регистрация таксономий и типов постов
-require get_template_directory() . '/functions/taxonomies_and_posttypes.php';
+// require get_template_directory() . '/functions/taxonomies_and_posttypes.php';
 
-    
+// Скрываем админпанель на сайте
+show_admin_bar(false);
 
 // Подключение кастомных виджетов
 // require get_template_directory() . '/widgets/widgets.php';
@@ -35,13 +36,14 @@ require get_template_directory() . '/functions/taxonomies_and_posttypes.php';
 
 
 // Редактирование файлов WooCommerce
-require get_template_directory() . '/woocommerce/woo.php';
+// require get_template_directory() . '/woocommerce/woo.php';
 
 
 
 add_theme_support('menus');             // поддержка меню
 add_theme_support('custom-logo');       // поддержка логотипа
 add_theme_support('post-thumbnails');   // поддержка миниатюр поста
+// add_theme_support('woocommerce');       // поддержка woocommerce(опционально)
 
 
 
@@ -54,48 +56,133 @@ function upload_allow_types( $mimes ) {
 	return $mimes;
 }
 
+// Кастомные размеры миниатюр
+// add_image_size('full_hd', 1920, 1080);
 
 
-// Подключение меню
-add_action( 'after_setup_theme', function(){
-	register_nav_menus( [
-		'header_menu' => 'Меню в шапке',
-		'footer_menu' => 'Меню в подвале',
-	] );
-} );
+// ACF Options page, Добавляет страницу опций в панель управления «wp-admin».
+// if( function_exists('acf_add_options_page') ) {
+//     acf_add_options_page();
+// }
+
+
+// function remove_menus(){
+//     remove_menu_page( 'edit.php' ); //Posts
+//     remove_menu_page( 'edit-comments.php' ); //Comments
+// }
+// add_action( 'admin_menu', 'remove_menus' );
+
+
+
+// Включение редактирования второго логотипа в кастомайзере
+// function my_customize_register( $wp_customize ) {
+//     $wp_customize->add_setting('header_logo', array(
+//         'default' => '',
+//         'sanitize_callback' => 'absint',
+//     ));
+
+//     $wp_customize->add_control(new WP_Customize_Media_Control($wp_customize, 'header_logo', array(
+//         'section' => 'title_tagline',
+//         'label' => 'Логотип в футере'
+//     )));
+
+//     $wp_customize->selective_refresh->add_partial('header_logo', array(
+//         'selector' => '.footer-logo',
+//         'render_callback' => function() {
+//             $logo = get_theme_mod('header_logo');
+//             $img = wp_get_attachment_image_src($logo, 'full');
+//             if ($img) {
+//                 return '<img src="' . $img[0] . '" alt="">';
+//             } else {
+//                 return '';
+//             }
+//         }
+//     ));
+// }
+// add_action( 'customize_register', 'my_customize_register' );
+
+
+// Подключение меню если нужно больше одного
+// add_action( 'after_setup_theme', function(){
+// 	register_nav_menus( [
+// 		'header_menu' => 'Меню в шапке',
+// 		'footer_menu' => 'Меню в подвале',
+// 	] );
+// } );
 
 
 
 // Подключение и регистрация сайдбаров
-add_action( 'widgets_init', 'register_sidebars' );
-function register_sidebars(){
+// add_action( 'widgets_init', 'register_sidebars' );
+// function register_sidebars(){
 
-	register_sidebar( array(
-		'name'          => "sidebar-1",
-		'id'            => "sidebar-1",
-		'description'   => '',
-		'class'         => '',
-		'before_widget' => '<li id="%1$s" class="widget %2$s">',
-		'after_widget'  => "</li>\n",
-		'before_title'  => '<h2 class="widgettitle">',
-		'after_title'   => "</h2>\n",
-		'before_sidebar' => '', // WP 5.6
-		'after_sidebar'  => '', // WP 5.6
-	) );
+// 	register_sidebar( array(
+// 		'name'          => "sidebar-1",
+// 		'id'            => "sidebar-1",
+// 		'description'   => '',
+// 		'class'         => '',
+// 		'before_widget' => '<li id="%1$s" class="widget %2$s">',
+// 		'after_widget'  => "</li>\n",
+// 		'before_title'  => '<h2 class="widgettitle">',
+// 		'after_title'   => "</h2>\n",
+// 		'before_sidebar' => '', // WP 5.6
+// 		'after_sidebar'  => '', // WP 5.6
+// 	) );
 
-    register_sidebar( array(
-		'name'          => "sidebar-2",
-		'id'            => "sidebar-2",
-		'description'   => '',
-		'class'         => '',
-		'before_widget' => '<li id="%1$s" class="widget %2$s">',
-		'after_widget'  => "</li>\n",
-		'before_title'  => '<h2 class="widgettitle">',
-		'after_title'   => "</h2>\n",
-		'before_sidebar' => '', // WP 5.6
-		'after_sidebar'  => '', // WP 5.6
-	) );
-}
+//     register_sidebar( array(
+// 		'name'          => "sidebar-2",
+// 		'id'            => "sidebar-2",
+// 		'description'   => '',
+// 		'class'         => '',
+// 		'before_widget' => '<li id="%1$s" class="widget %2$s">',
+// 		'after_widget'  => "</li>\n",
+// 		'before_title'  => '<h2 class="widgettitle">',
+// 		'after_title'   => "</h2>\n",
+// 		'before_sidebar' => '', // WP 5.6
+// 		'after_sidebar'  => '', // WP 5.6
+// 	) );
+// }
+
+
+
+// Кастомное меню
+// class description_walker extends Walker_Nav_Menu{
+//     function start_el(&$output, $item, $depth, $args){
+//         global $wp_query;
+//         $indent = ($depth) ? str_repeat("\t", $depth) : '';
+
+//         $class_names = $value = '';
+
+//         $classes = empty($item->classes) ? array() : (array) $item->classes;
+
+//         $class_names = join(' ', apply_filters('nav_menu_css_class', array_filter($classes), $item));
+//         $class_names = ' class="' . esc_attr($class_names) . '"';
+
+//         $output .= $indent . '<li class="nav__item">';
+
+
+//         $attributes  = !empty($item->attr_title) ? ' title="'  . esc_attr($item->attr_title) . '"' : '';
+//         $attributes .= !empty($item->target)     ? ' target="' . esc_attr($item->target) . '"' : '';
+//         $attributes .= !empty($item->xfn)        ? ' rel="'    . esc_attr($item->xfn) . '"' : '';
+//         $attributes .= !empty($item->url)        ? ' href="'   . esc_attr($item->url) . '"' : '';
+
+//         $prepend = '<strong>';
+//         $append = '</strong>';
+
+
+//         if ($depth != 0) {
+//             $description = $append = $prepend = '';
+//         }
+
+//         $item_output = $args->before;
+//         $item_output .= '<a class="nav__link"' . $attributes . '>';
+//         $item_output .= $args->link_before . apply_filters('the_title', $item->title, $item->ID);
+//         $item_output .= '</a>';
+//         $item_output .= $args->after;
+
+//         $output .= apply_filters('walker_nav_menu_start_el', $item_output, $item, $depth, $args);
+//     }
+// }
 
 // Подключение и регистрация кастомных виджетов - ДОПОЛНИТЬ!!!
 // https://misha.agency/wordpress/widgets.html
@@ -104,44 +191,3 @@ function register_sidebars(){
 
 
 ?>
-
-
-
-
-
-
-
-
-
-<!-- Сниппеты
-<?php the_field(''); ?>
-
-<?php 
-    $mainr6 = get_field('main-r6');
-if( $mainr6 ): 
-    $mainr6_url = $mainr6['url'];
-    $mainr6_title = $mainr6['title'];
-    $mainr6_target = $mainr6['target'] ? $mainr6['target'] : '_self';
-?>
-
-    <a class="" href="<?php echo esc_url( $mainr6_url ); ?>" target="<?php echo esc_attr( $mainr6_target ); ?>"><?php echo esc_html( $mainr6_title ); ?></a>
-    
-<?php endif ?>
-
-<?php if( have_rows('') ): ?>
-    <?php while ( have_rows('') ) : the_row(); 
-        $photo = get_sub_field('');
-    ?>
-
-        <div>
-            <img src="<?php echo $photo ?>" alt=''>
-        </div>  
-
-    <?php endwhile ?>
-<?php endif ?>
-
-<?php get_template_part('templates/bottom-video') ?>
-<?php do_shortcode('templates/bottom-video') ?>
-
-
--->
