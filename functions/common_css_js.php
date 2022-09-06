@@ -45,6 +45,14 @@ function _scripts(){
         'nonce' => wp_create_nonce('search-nonce'),
     ]);
 
+
+    // AJAX-подписка на рассылку с плагином newsletter
+    wp_enqueue_script('newsletter', get_template_directory_uri() . '/assets/js/newsletter.js', array(), null, true);
+    wp_localize_script('newsletter', 'newsletter', [
+        'url' => admin_url('admin-ajax.php'),
+        'nonce' => wp_create_nonce('newsletternonce'),
+    ]);
+
     // common scripts
     //=====================================================================
 

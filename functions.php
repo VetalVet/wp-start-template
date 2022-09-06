@@ -9,6 +9,9 @@ require get_template_directory() . '/functions/common_css_js.php';
 // AJAX поиск
 // require get_template_directory() . '/functions/ajax-search.php';
 
+// AJAX подписка на рассылку с плагином Newsletter
+// require get_template_directory() . '/functions/ajax/newsletter.php';
+
 // Хлебные крошки 
 // require get_template_directory() . '/functions/breadcrumbs.php';
 
@@ -20,6 +23,11 @@ require get_template_directory() . '/functions/common_css_js.php';
 
 // Регистрация таксономий и типов постов
 // require get_template_directory() . '/functions/taxonomies_and_posttypes.php';
+
+// Регистрация кастомных gutenberg блоков
+// require get_template_directory() . '/functions/gutenberg_acf.php';
+
+
 
 // Скрываем админпанель на сайте
 show_admin_bar(false);
@@ -183,6 +191,41 @@ function upload_allow_types( $mimes ) {
 //         $output .= apply_filters('walker_nav_menu_start_el', $item_output, $item, $depth, $args);
 //     }
 // }
+
+
+
+// Пример создания шорткода
+// add_shortcode( 'download-file', 'shortcode' );
+// function shortcode( $atts ){
+
+//     $params = shortcode_atts( 
+// 		array(
+// 			'url' => null,
+// 			'title' => esc_html('Download File'),
+// 		), 
+// 		$atts 
+// 	);
+
+//     if(!$params['url'] || !is_page()){
+//         return;
+//     } else{
+//         if(!$params['title']){
+//             $title = esc_html('Download File');
+//         } 
+//         return "<a href='" . $params['url'] . "' title='" . esc_html($params['title']) . "'>" . esc_html($params['title']) . "</a>";
+//     }
+// }
+
+
+// Вызов шаблона 404 при заходе на нужную страницу без редиректов
+// function my_parse_query( $wp_query ) { 
+//     if (is_author() || is_category() || is_tag() || is_date() || is_tax('country', 'country')) { 
+//         $wp_query->set_404(); 
+//         status_header( 404 ); 
+//     } 
+// } 
+// add_action( 'parse_query', 'my_parse_query' ); 
+
 
 // Подключение и регистрация кастомных виджетов - ДОПОЛНИТЬ!!!
 // https://misha.agency/wordpress/widgets.html
