@@ -534,4 +534,13 @@ function emailTest(input) {
 function phoneTest(input) {
     return !/(\+7|8)[\s(]?(\d{3})[\s)]?(\d{3})[\s-]?(\d{2})[\s-]?(\d{2})/.test(input.value);
 }
+
+// Проверка на кол-во цифр в телефоне
+// if (phone.match( /\d/g ).length == 12 && name.value.length) {
+//     document.querySelector(".popup_interview").classList.remove('_active')
+//     document.querySelector(".popup_thankyou").classList.add('_active')
+//     window.location.hash = "thankyou";
+// } else {
+//     return;
+// }
 // Валидация формы

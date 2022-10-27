@@ -46,6 +46,14 @@ function _scripts(){
     ]);
 
 
+    // AJAX-фильтрация по меткам
+    // wp_enqueue_script('searchtags', get_template_directory_uri() . '/assets/js/searchtags.js', array(), null, true);
+    // wp_localize_script('searchtags', 'searchtags', [
+    //     'url' => admin_url('admin-ajax.php'),
+    //     'nonce' => wp_create_nonce('searchtags-nonce'),
+    // ]);
+
+
     // AJAX-подписка на рассылку с плагином newsletter
     wp_enqueue_script('newsletter', get_template_directory_uri() . '/assets/js/newsletter.js', array(), null, true);
     wp_localize_script('newsletter', 'newsletter', [

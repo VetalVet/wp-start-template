@@ -43,10 +43,6 @@
                     ] ); ?>
                 </div>
 
-                <div class="footer-logo">
-                    <img src='<?php get_template_directory_uri(); ?>/assets/img/logo-footer.png' height="39" width="105" alt="">
-                </div>
-
                 <div class="footer-bot">
                     <?php wp_nav_menu( [
                         'theme_location'  => '',
