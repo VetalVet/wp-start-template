@@ -26,39 +26,38 @@
     <div class="wrapper">
         <header>
             <div class="container">
-                <div class="head-logo">
-                    <img src="" alt="">
-                    <!-- <?php the_custom_logo(); ?> -->
-                </div>
+                <a href="#" class="custom-logo-link" rel="home" aria-current="page">
+                    <img width="" height="" src="" class="custom-logo" alt="" decoding="async">
+                </a>
+                <!-- <?php the_custom_logo(); ?> -->
 
-                <nav class="head-menu">
+
+                <nav>
                     <ul>
-                        <li class="menu-item-has-children">
+                        <li class="menu-item menu-item-has-children">
                             <a href=""></a>
                             <!-- для многоуровневого меню -->
                             <ul class="sub-menu">
                                 <li class="menu-item-has-children">
                                     <a href=""></a>
-                                    <ul>
-                                        <li>
-                                            <a href=""></a>
-                                        </li>
-                                        <li><a href=""></a></li>
-                                        <li><a href=""></a></li>
-                                        <li><a href=""></a></li>
-                                        <li><a href=""></a></li>
+                                    <ul class="sub-menu">
+                                        <li class="menu-item"><a href=""></a></li>
+                                        <li class="menu-item"><a href=""></a></li>
+                                        <li class="menu-item"><a href=""></a></li>
+                                        <li class="menu-item"><a href=""></a></li>
+                                        <li class="menu-item"><a href=""></a></li>
                                     </ul>
                                 </li>
-                                <li><a href=""></a></li>
-                                <li><a href=""></a></li>
-                                <li><a href=""></a></li>
-                                <li><a href=""></a></li>
+                                <li class="menu-item"><a href=""></a></li>
+                                <li class="menu-item"><a href=""></a></li>
+                                <li class="menu-item"><a href=""></a></li>
+                                <li class="menu-item"><a href=""></a></li>
                             </ul>
                         </li>
-                        <li><a href=""></a></li>
-                        <li><a href=""></a></li>
-                        <li><a href=""></a></li>
-                        <li><a href=""></a></li>
+                        <li class="menu-item"><a href=""></a></li>
+                        <li class="menu-item"><a href=""></a></li>
+                        <li class="menu-item"><a href=""></a></li>
+                        <li class="menu-item"><a href=""></a></li>
                     </ul>
                     <!-- <?php wp_nav_menu( [
                         'theme_location'  => 'Меню в шапке',
@@ -119,6 +118,17 @@
                     </form>
                 </div> -->
 
+                <!-- Переключатель языков в виде списка -->
+                <ul>
+                    <li class="lang-item current-lang"><a href="#">Українська</a></li>
+                    <li class="lang-item"><a href="#">Русский</a></li>
+                </ul>
+
+                <!-- Переключатель языков в виде селекта -->
+                <select name="lang_choice_1" id="lang_choice_1">
+                    <option value="uk" selected="selected">Українська</option>
+                    <option value="ru">Русский</option>
+                </select>
             </div>
         </header>
         <!-- =======================  header.php  ======================= -->
@@ -372,6 +382,46 @@
     <script src="assets/js/lightgallery.min.js"></script>
 
     <script src="assets/js/main.js"></script>
+
+    <!-- Блочим инспектор и комбинации горячих клавиш -->
+    <!-- <script>
+        function kill_ctrl_key_combo(e) {
+            var forbiddenKeys = new Array('a', 'c', 'x', 's', 'u');
+            var key;
+            var isCtrl;
+
+            if (window.event) {
+                key = window.event.keyCode;
+                if (window.event.ctrlKey || window.event.metaKey) isCtrl = true;
+                else isCtrl = false;
+            } else {
+                key = e.which;
+                if (e.ctrlKey || e.metaKey) isCtrl = true;
+                else isCtrl = false;
+            }
+            if(key == 123){
+                return false;
+            }
+
+            if (isCtrl) {
+                for (i = 0; i < forbiddenKeys.length; i++) {
+                    if (forbiddenKeys[i].toLowerCase() == String.fromCharCode(key).toLowerCase()) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+        window.onload = function() {
+            document.onkeydown = kill_ctrl_key_combo;
+        };
+
+        document.ondragstart = noselect;
+        document.onselectstart = noselect;
+
+        document.oncontextmenu = noselect;
+        function noselect() {return false;}
+    </script> -->
     <!-- <?php wp_footer(); ?> -->
 </body>
 

@@ -27,12 +27,42 @@ require get_template_directory() . '/functions/common_css_js.php';
 // Регистрация кастомных gutenberg блоков
 // require get_template_directory() . '/functions/gutenberg_acf.php';
 
+// Регистрация кастомных WPBakery блоков
+// if (defined('WPB_VC_VERSION')) {
+// require get_template_directory() . '/vc_templates/wpbakeryinit.php';
+// }
+
 // Регистрация новых юзеров
 // require get_template_directory() . '/functions/users/registration.php';
 
 
 // Скрываем админпанель на сайте
 show_admin_bar(false);
+
+// Hide version
+remove_action('wp_head', 'wp_generator');
+
+// Remove Windows Live Writer
+remove_action( 'wp_head', 'wlwmanifest_link');
+
+// Remove comment inline styles
+add_filter( 'show_recent_comments_widget_style', '__return_false' );
+
+// Remove all emoji code
+remove_action( 'admin_print_styles', 'print_emoji_styles' );
+remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
+remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
+remove_action( 'wp_print_styles', 'print_emoji_styles' );
+remove_filter( 'wp_mail', 'wp_staticize_emoji_for_email' );
+remove_filter( 'the_content_feed', 'wp_staticize_emoji' );
+remove_filter( 'comment_text_rss', 'wp_staticize_emoji' );
+add_filter( 'emoji_svg_url', '__return_false' );
+
+// Disable XMLRPC
+add_filter('xmlrpc_enabled', '__return_false');
+remove_action('wp_head', 'rsd_link');
+remove_action('wp_head', 'rest_output_link_wp_head');
+
 
 // Подключение кастомных виджетов
 // require get_template_directory() . '/widgets/widgets.php';
@@ -359,3 +389,43 @@ function custom_override_checkout_fields($fields)
 // }
 // add_action('pre_user_query', 'gonibabki');
 // Для недобросовестных заказчиков
+
+
+// Удаление слага категории или пост тайпа из ссылки
+// function remove_post_slug( $post_link, $post, $leavename ) {
+//     if ( 'portfolio' != $post->post_type || 'publish' != $post->post_status ) {
+//         return $post_link;
+//     }
+//     $post_link = str_replace( '/' . $post->post_type . '/', '/', $post_link );
+
+//     return $post_link;
+// }
+// add_filter( 'post_type_link', 'remove_post_slug', 10, 3 );
+
+
+// function parse_request_trick( $query ) {
+//     if ( ! $query->is_main_query() || 2 != count( $query->query ) || ! isset( $query->query['page'] ) ) {
+//         return;
+//     }
+//     if ( ! empty( $query->query['name'] ) ) {
+//         $query->set( 'post_type', array( 'portfolio' ) );
+//     }
+// }
+// add_action( 'pre_get_posts', 'parse_request_trick' );
+// Удаление слага категории или пост тайпа из ссылки
+
+
+
+// function truemisha_post_id_by_metas( $key, $value ){
+// 	global $wpdb;
+ 
+// 	// получаем массив из всех ID, подходящих под заданные мета ключ и значение
+// 	$all_posts = $wpdb->get_col( $wpdb->prepare( "SELECT post_id FROM $wpdb->postmeta WHERE meta_key = %s AND meta_value = %s", $key, $value ) );
+ 
+// 	// это уже необязательно, я просто сделал, что если ID найден только один, то он и возвращается в виде числа,
+// 	// а если несколько постов удовлетворяют условию, то они и будут возвращены в виде массива
+// 	if( count( $all_posts ) > 1 ) 
+// 		return $all_posts; // массив
+// 	else
+// 		return $all_posts[0]; // целое
+// }

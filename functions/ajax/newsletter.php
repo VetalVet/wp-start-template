@@ -1,6 +1,6 @@
 <?php
 
-define( 'THEME_NAME', get_option('stylesheet') );
+// define( 'THEME_NAME', get_option('stylesheet') );
 
 add_action('wp_ajax_uaknewsletter', 'ajaxSubscribeNewsletter');
 add_action('wp_ajax_nopriv_uaknewsletter', 'ajaxSubscribeNewsletter');

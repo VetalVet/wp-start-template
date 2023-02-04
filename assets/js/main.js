@@ -286,6 +286,10 @@ forms.forEach(item => {
         const formData = new FormData(item);
         const url = 'assets/forms/server.php'
 
+        for (var pair of formData.entries()) {
+            console.log(pair[0]+ ', ' + pair[1]); 
+        }
+
         const postData = async (url, data) => {
             let res = await fetch(url, {
                 method: 'POST',
@@ -535,6 +539,10 @@ function phoneTest(input) {
     return !/(\+7|8)[\s(]?(\d{3})[\s)]?(\d{3})[\s-]?(\d{2})[\s-]?(\d{2})/.test(input.value);
 }
 
+function esc_tags(str){
+    return str.replace(/( |<([^>]+)>)/ig, "");
+}
+
 // Проверка на кол-во цифр в телефоне
 // if (phone.match( /\d/g ).length == 12 && name.value.length) {
 //     document.querySelector(".popup_interview").classList.remove('_active')
@@ -543,4 +551,39 @@ function phoneTest(input) {
 // } else {
 //     return;
 // }
+
+// Нельзя ввести ничего кроме цифр
+// formPhone.addEventListener("keypress", (e) => {
+//     if (!/\d/.test(e.key)) e.preventDefault();
+// });
+// formPhone.addEventListener("input", () => {
+//     if(formPhone.value.match(/[^0-9]/g)){
+//       formPhone.value = formPhone.value.replace(/[^0-9]/g, "");
+//     };
+// });
+
+// Для формы Contact Form 7
+// if (error === 0) {
+//     document.addEventListener( 'wpcf7mailsent', function() {
+    
+//     });
+// }
+// Для формы Contact Form 7
+
 // Валидация формы
+
+let formsCF7 = document.querySelectorAll('.wpcf7-form input[type=submit]');
+
+formsCF7.forEach(form => {
+    form.addEventListener('click', (e) => {
+
+        let phone = document.querySelector('.wpcf7-form input[name="number-phone"]');
+
+        if(phone.value.length < 17){ 
+            e.preventDefault();
+            phone.classList.add('wpcf7-not-valid');
+        } else{
+            phone.classList.remove('wpcf7-not-valid');
+        }
+    })
+})

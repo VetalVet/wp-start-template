@@ -27,11 +27,11 @@
         <!-- вывод даты публикации поста -->
         <?php echo get_the_date(); ?>
             
-        <!-- 
-
-            Вёрстка поста с post type: some
-
-         -->
+        <div <?php post_class(); ?>>
+            <!-- 
+                Вёрстка поста с post type: some
+            -->
+        </div>
 
 <?php
     // Для комментариев
