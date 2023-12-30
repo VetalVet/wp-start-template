@@ -109,6 +109,23 @@
 		// } else{
 		// 	echo get_template_part('template-parts/content-none');
 		// }
+
+
+        $cases = new WP_Query( array(
+			'post_type'      	=> 'cases',
+			'posts_per_page'   	=> 2,
+		) );
+
+		if( $cases->have_posts() ){
+			while( $cases->have_posts() ){
+				$cases->the_post();
+                the_post_thumbnail();
+                the_title();
+			}
+			wp_reset_postdata(); // сбрасываем переменную $post
+		} else{
+			'No cases'
+		}
 	?>
 
 </aside>

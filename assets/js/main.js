@@ -367,7 +367,15 @@ const mask = (selector, pattern) => {
 // mask(".phone", '+__ (___) ___ __ __'); 
 // Кастомная маска телефона
 
-
+// Получить данные о юзере
+// fetch("https://ipapi.co/json")
+//     .then(res => res.json())
+//     .then(data => {
+//     mask('.form-reserve [name="book_campaign_phone"]', data.country_calling_code + '(__) ___ __ __');
+//     callback(data.country_code);
+//     })
+//     .catch(() => callback("us"));
+// Получить данные о юзере
 
 // Анимация при скролле
 const animItems = document.querySelectorAll('._anim-items');
@@ -564,9 +572,9 @@ function esc_tags(str){
 
 // Для формы Contact Form 7
 // if (error === 0) {
-//     document.addEventListener( 'wpcf7mailsent', function() {
+    document.addEventListener( 'wpcf7mailsent', function() {
     
-//     });
+    });
 // }
 // Для формы Contact Form 7
 
@@ -587,3 +595,100 @@ formsCF7.forEach(form => {
         }
     })
 })
+
+
+// Выборочная валидация почт
+// let forms = document.querySelectorAll('.wpcf7-form');
+
+// forms.forEach(form => {
+//     let formEmail = form.querySelector('.wpcf7-email');
+//     let formPhone = form.querySelector('.wpcf7-phonetext');
+
+//     form.addEventListener('submit', (e) => {
+//         let error = 0; 
+//         let mails = ['ukr.net', 'gmail.com', 'mail.ru', 'yahoo.com'];
+
+//         if(formEmail.value.length == 0 && mails.some(i => isMail(i.split('@')[1]))){
+//             formEmail.classList.add('wpcf7-not-valid');
+//             console.log('email не правильный');
+//             error++;
+//         } else {
+//             formEmail.classList.remove('wpcf7-not-valid');
+//         }
+
+//         if(formPhone.value.length < 12){
+//             formPhone.classList.add('wpcf7-not-valid');
+//             error++;
+//         } else {
+//             formPhone.classList.remove('wpcf7-not-valid');
+//         }
+//     });
+    
+//     function isMail(mail){
+//         return formEmail.value.includes(mail);
+//     }
+// })
+
+// Проверка на куки
+const cookie = document.querySelector('.cookie-banner');
+if(cookie){
+    cookie.querySelector('.cookie-banner a').addEventListener('click', (e) => {
+        e.preventDefault();
+        cookie.remove();
+        document.cookie = 'salexaccept=1; path=/;';
+    });
+}
+// if(document.cookie.includes('salexaccept=1')){
+//     cookie.remove();
+// }
+// Проверка на куки
+
+
+// Динамическая подгрузка скриптов
+// loadScript("https://www.google.com/recaptcha/api.js", 3500);
+
+function loadScript(src, timeout) {
+    setTimeout(() => {
+        let script = document.createElement("script");
+        script.type = "text/javascript";
+        script.src = src;
+        document.getElementsByTagName("head")[0].appendChild(script);
+    }, timeout);
+}
+// Динамическая подгрузка скриптов
+
+
+// Скопировать в буфер обмена
+let copyBlocks = document.querySelectorAll('.requisites-form-table-text');
+
+copyBlocks.forEach((btn) => {
+  const copyBtn = btn.querySelector('.copy');
+
+  let refLink = '';
+  if (btn.querySelector('.requisites-form-table-text-title-copy p')) {
+    refLink = btn.querySelector('.requisites-form-table-text-title-copy p').textContent;
+  }
+
+  if (copyBtn && refLink) {
+    copyBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+
+      // console.log(refLink);
+
+      let inp = document.createElement('input');
+      inp.value = refLink;
+      document.body.appendChild(inp);
+      inp.select();
+
+      if (document.execCommand('copy')) {
+        copyBtn.classList.add('copy-pressed');
+      }
+      setTimeout(() => {
+        copyBtn.classList.remove('copy-pressed');
+      }, 3000);
+
+      document.body.removeChild(inp);
+    });
+  }
+});
+// Скопировать в буфер обмена

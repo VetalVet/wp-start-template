@@ -22,11 +22,18 @@
 <head>
     <meta charset="<?php bloginfo( 'charset' ); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php bloginfo('name');
-			echo ' | ';
-			bloginfo('description'); ?></title>
+    <title><?php wp_title(); ?></title>
+
     <?php wp_head(); ?>
 
+    <link rel="alternate" href="https://wtechnew.devbrainlab.com.ua/en/" hreflang="en-GB" />
+    <link rel="alternate" href="https://wtechnew.devbrainlab.com.ua/" hreflang="uk-UA" />
+
+    <?php if(pll_current_language() == 'en'){ ?>
+        <link rel="alternate" href="https://wtechnew.devbrainlab.com.ua/en/" hreflang="x-default" />
+    <?php } else { ?>
+        <link rel="alternate" href="https://wtechnew.devbrainlab.com.ua/" hreflang="x-default" />
+    <?php } ?>
 </head>
 
 <body <?php body_class(); ?>>
@@ -138,3 +145,11 @@
                 </select>
             </div>
         </header>
+        
+        <?php
+            // Если зашли с Internet explorera, то редиректим на заглушку 
+            $ua = htmlentities($_SERVER['HTTP_USER_AGENT'], ENT_QUOTES, 'UTF-8');
+            if (preg_match('~MSIE|Internet Explorer~i', $ua) || (strpos($ua, 'Trident/7.0') !== false && strpos($ua, 'rv:11.0') !== false)) {
+                wp_redirect('/ie-thumb', 301);
+            }
+        ?>

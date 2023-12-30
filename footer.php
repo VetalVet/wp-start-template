@@ -58,6 +58,9 @@
             </div>
         </footer>
     </div>
+
+    <!-- Для куки баннера -->
+    
     <?php wp_footer(); ?>
 </body>
 
